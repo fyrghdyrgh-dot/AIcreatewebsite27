@@ -1,0 +1,1141 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>电商带货工作台｜选品雷达·详情页结构·卖点证据</title>
+  <meta name="description" content="国内电商带货工作台：选品雷达、卖点证据链、详情页结构、投放素材拆解一站式导航与模板库。支持分类、搜索、收藏、最近使用与推荐；纯前端单页可直接部署。" />
+  <meta property="og:title" content="电商带货工作台" />
+  <meta property="og:description" content="选品雷达·详情页结构·卖点证据｜支持分类、搜索、收藏、最近使用与模板库。" />
+  <meta property="og:type" content="website" />
+  <style>
+    :root{
+      --bg:#f7fafc;
+      --paper:#ffffff;
+      --paper2:#fbfdff;
+      --text:#0f172a;
+      --muted:#64748b;
+      --line:rgba(15,23,42,.10);
+      --shadow: 0 16px 46px rgba(15,23,42,.10);
+      --shadow2: 0 26px 86px rgba(15,23,42,.14);
+      --radius: 18px;
+      --blue:#2563eb;
+      --teal:#0ea5e9;
+      --mint:#10b981;
+      --amber:#f59e0b;
+      --rose:#f43f5e;
+      --violet:#7c3aed;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      color:var(--text);
+      font-family: system-ui, -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+      line-height:1.55;
+      background:
+        radial-gradient(940px 560px at 8% 0%, rgba(37,99,235,.14), transparent 60%),
+        radial-gradient(760px 520px at 92% 8%, rgba(16,185,129,.12), transparent 62%),
+        radial-gradient(760px 520px at 44% 108%, rgba(244,63,94,.10), transparent 62%),
+        linear-gradient(180deg, var(--paper2), var(--bg));
+    }
+    a{color:inherit;text-decoration:none}
+    button{font-family:inherit}
+
+    .shell{max-width:1260px;margin:0 auto;padding:14px}
+    .layout{
+      display:grid;
+      grid-template-columns: 300px minmax(0, 1fr);
+      gap: 14px;
+      align-items:start;
+    }
+    .panel{
+      background: rgba(255,255,255,.86);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .panel.pad{padding:14px}
+    .anchor{scroll-margin-top: 12px}
+
+    .side{
+      position: sticky;
+      top: 14px;
+      height: calc(100vh - 28px);
+      overflow:auto;
+      padding: 12px;
+    }
+    .side::-webkit-scrollbar{width:10px}
+    .side::-webkit-scrollbar-thumb{background: rgba(15,23,42,.10); border-radius: 999px}
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding: 6px 4px 12px;
+    }
+    .logo{
+      width:40px;height:40px;border-radius:16px;
+      background:
+        radial-gradient(14px 14px at 30% 30%, rgba(255,255,255,.60), transparent 62%),
+        linear-gradient(135deg, rgba(37,99,235,1), rgba(16,185,129,.92));
+      box-shadow: 0 18px 44px rgba(37,99,235,.20);
+    }
+    .brand-text{display:flex;flex-direction:column;line-height:1.1}
+    .brand-title{font-weight:980;letter-spacing:.2px}
+    .brand-sub{margin-top:2px;color: var(--muted);font-size:12px}
+
+    .side-actions{display:flex;gap:10px;flex-wrap:wrap;margin: 8px 0 10px}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      border:1px solid rgba(15,23,42,.12);
+      background: rgba(255,255,255,.76);
+      color: rgba(15,23,42,.92);
+      border-radius:999px;
+      padding:10px 12px;
+      font-size:12.5px;
+      cursor:pointer;
+      user-select:none;
+      transition: transform .12s ease, border-color .12s ease, background .12s ease;
+    }
+    .btn:hover{transform: translateY(-1px); border-color: rgba(37,99,235,.22); background: rgba(255,255,255,.92)}
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(37,99,235,1), rgba(16,185,129,.95));
+      border-color: rgba(37,99,235,.22);
+      color:#fff;
+      font-weight: 900;
+    }
+    .btn.ghost{background:transparent}
+
+    .side-section-title{
+      margin: 12px 0 8px;
+      font-weight: 950;
+      font-size: 12px;
+      color: rgba(15,23,42,.72);
+      letter-spacing:.2px;
+    }
+
+    .catlist{display:flex;flex-direction:column;gap:8px}
+    .catitem{
+      width:100%;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      border:1px solid rgba(15,23,42,.10);
+      background: rgba(255,255,255,.74);
+      border-radius: 16px;
+      padding: 10px 10px;
+      cursor:pointer;
+      user-select:none;
+      transition: transform .12s ease, border-color .12s ease, background .12s ease;
+      text-align:left;
+    }
+    .catitem:hover{transform: translateY(-1px); border-color: rgba(16,185,129,.18); background: rgba(255,255,255,.92)}
+    .catitem.active{border-color: rgba(37,99,235,.22); background: rgba(37,99,235,.08)}
+    .catleft{display:flex;align-items:center;gap:10px;min-width:0}
+    .catico{
+      width: 36px;height:36px;border-radius: 14px;
+      display:flex;align-items:center;justify-content:center;
+      background: linear-gradient(135deg, rgba(37,99,235,.12), rgba(16,185,129,.10));
+      color: rgba(15,23,42,.84);
+      overflow:hidden;
+      flex:0 0 auto;
+    }
+    .catname{font-weight: 920; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+    .catmeta{
+      font-size: 12px;
+      color: rgba(15,23,42,.58);
+      border:1px solid rgba(15,23,42,.10);
+      background: rgba(255,255,255,.70);
+      padding: 5px 8px;
+      border-radius: 999px;
+      flex: 0 0 auto;
+    }
+
+    .main{min-width:0}
+    .top{
+      display:flex;
+      gap: 12px;
+      align-items:stretch;
+      flex-wrap:wrap;
+    }
+    .spot{
+      flex: 1 1 440px;
+      border-radius: 22px;
+      overflow:hidden;
+      border: 1px solid rgba(15,23,42,.10);
+      background:
+        radial-gradient(860px 420px at 14% 10%, rgba(37,99,235,.16), transparent 60%),
+        radial-gradient(760px 420px at 86% 22%, rgba(16,185,129,.12), transparent 62%),
+        radial-gradient(620px 380px at 52% 92%, rgba(244,63,94,.10), transparent 62%),
+        linear-gradient(135deg, rgba(255,255,255,.92), rgba(255,255,255,.78));
+      box-shadow: var(--shadow2);
+      padding: 14px 14px;
+    }
+    .spot-title{margin:0;font-size:18px;font-weight:980;letter-spacing:.2px}
+    .spot-sub{margin:8px 0 0;color: rgba(15,23,42,.68);font-size:12.5px;line-height:1.7}
+
+    .searchbar{
+      margin-top: 10px;
+      display:flex;align-items:center;gap:10px;
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.92);
+      border: 1px solid rgba(15,23,42,.10);
+      box-shadow: 0 18px 60px rgba(15,23,42,.10);
+    }
+    .searchbar svg{opacity:.92;color: rgba(15,23,42,.72)}
+    .searchbar input{
+      flex:1;border:0;outline:0;background:transparent;
+      color: rgba(15,23,42,.92);
+      font-size: 14px;
+    }
+    .searchbar input::placeholder{color: rgba(100,116,139,.82)}
+
+    .statrow{margin-top: 10px;display:flex;gap:10px;flex-wrap:wrap}
+    .chip{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:7px 10px;border-radius:999px;
+      border:1px solid rgba(15,23,42,.10);
+      background: rgba(255,255,255,.74);
+      color: rgba(15,23,42,.70);
+      font-size:12px;
+      user-select:none;
+    }
+    .chip b{color: rgba(15,23,42,.92)}
+    .chip i{font-style:normal;color: rgba(244,63,94,.95)}
+
+    .rec{
+      flex: 0 1 360px;
+      min-width: 320px;
+    }
+    .rec-head{
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      padding: 12px 12px;
+      border-bottom: 1px solid rgba(15,23,42,.10);
+    }
+    .rec-title{font-weight:980}
+    .segrow{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+    .seg{
+      border:1px solid rgba(15,23,42,.10);
+      background: rgba(255,255,255,.74);
+      color: rgba(15,23,42,.80);
+      border-radius:999px;
+      padding:7px 10px;
+      font-size:12px;
+      cursor:pointer;
+      user-select:none;
+    }
+    .seg.active{border-color: rgba(37,99,235,.22); background: rgba(37,99,235,.10); color: rgba(15,23,42,.92)}
+    .rec-body{padding: 12px 12px}
+    .rec-desc{margin:0;color: rgba(15,23,42,.70);font-size:12.5px}
+    .rec-hint{margin:8px 0 0;color: rgba(15,23,42,.54);font-size:12px}
+    .rec-grid{margin-top: 10px;display:grid;grid-template-columns: 1fr;gap:10px}
+    .rec-card{
+      display:flex;align-items:center;gap:10px;
+      padding:10px 10px;
+      border-radius: 16px;
+      border:1px solid rgba(15,23,42,.10);
+      background: rgba(255,255,255,.74);
+      transition: transform .12s ease, border-color .12s ease, background .12s ease;
+      min-height: 62px;
+    }
+    .rec-card:hover{transform: translateY(-1px); border-color: rgba(16,185,129,.18); background: rgba(255,255,255,.92)}
+    .rec-icon{
+      width: 40px;height:40px;border-radius: 16px;
+      display:flex;align-items:center;justify-content:center;
+      background: linear-gradient(135deg, rgba(37,99,235,.12), rgba(16,185,129,.10));
+      color: rgba(15,23,42,.84);
+      overflow:hidden;
+      flex:0 0 auto;
+    }
+    .rec-icon img{width: 20px;height: 20px;object-fit:contain;opacity:.96}
+    .rec-text{display:flex;flex-direction:column;min-width:0}
+    .rec-name{font-weight:900;font-size:13px}
+    .rec-sub{color: rgba(15,23,42,.60); font-size:12px; margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+
+    .grid{
+      margin-top: 12px;
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .card{
+      border:1px solid rgba(15,23,42,.10);
+      background: rgba(255,255,255,.78);
+      border-radius: 18px;
+      padding: 12px 12px;
+    }
+    .card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+    .card-title{margin:0;font-weight:980;font-size:14.5px}
+    .card-desc{margin:6px 0 0;color: rgba(15,23,42,.62);font-size:12.5px;line-height:1.6}
+    .star{
+      border: 1px solid rgba(15,23,42,.10);
+      background: rgba(255,255,255,.74);
+      color: rgba(15,23,42,.92);
+      border-radius: 14px;
+      width: 38px;height: 38px;
+      display:inline-flex;align-items:center;justify-content:center;
+      cursor:pointer;user-select:none;
+      transition: transform .12s ease, border-color .12s ease, background .12s ease;
+      flex: 0 0 auto;
+    }
+    .star:hover{transform: translateY(-1px); border-color: rgba(37,99,235,.20); background: rgba(255,255,255,.92)}
+    .tags{margin-top: 10px;display:flex;gap:8px;flex-wrap:wrap}
+    .tag{
+      font-size:12px;
+      padding:6px 9px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.10);
+      background: rgba(255,255,255,.70);
+      color: rgba(15,23,42,.68);
+    }
+    .card-actions{margin-top: 10px;display:flex;gap:10px;flex-wrap:wrap}
+    .mini{
+      border:1px solid rgba(15,23,42,.10);
+      background: rgba(255,255,255,.74);
+      color: rgba(15,23,42,.88);
+      border-radius:999px;
+      padding:8px 10px;
+      font-size:12.5px;
+      cursor:pointer;
+      user-select:none;
+      transition: transform .12s ease, border-color .12s ease, background .12s ease;
+    }
+    .mini:hover{transform: translateY(-1px); border-color: rgba(16,185,129,.18); background: rgba(255,255,255,.92)}
+    .mini.primary{
+      background: linear-gradient(135deg, rgba(37,99,235,1), rgba(16,185,129,.95));
+      border-color: rgba(37,99,235,.20);
+      color:#fff;
+      font-weight: 900;
+    }
+
+    .inline-ad{grid-column:1 / -1}
+    .ad-slot{
+      border-radius: 18px;
+      border:1px solid rgba(15,23,42,.10);
+      background:
+        radial-gradient(820px 320px at 10% 10%, rgba(37,99,235,.14), transparent 60%),
+        radial-gradient(760px 320px at 88% 30%, rgba(16,185,129,.10), transparent 62%),
+        linear-gradient(135deg, rgba(255,255,255,.92), rgba(255,255,255,.74));
+      padding: 14px 14px;
+    }
+    .ad-title{font-weight: 980}
+    .ad-desc{margin-top:8px;color: rgba(15,23,42,.68);font-size:12.5px;line-height:1.7}
+    .badge{
+      font-size:12px;
+      padding:6px 9px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,.10);
+      background: rgba(255,255,255,.74);
+      color: rgba(15,23,42,.72);
+      user-select:none;
+    }
+
+    .work{
+      margin-top: 12px;
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .wcard{
+      border:1px solid rgba(15,23,42,.10);
+      background: rgba(255,255,255,.78);
+      border-radius: 18px;
+      padding: 12px 12px;
+    }
+    .wtitle{margin:0;font-size:14.5px;font-weight:980}
+    .wdesc{margin:6px 0 0;color: rgba(15,23,42,.62);font-size:12.5px;line-height:1.7}
+    .wmeta{margin-top: 10px;display:flex;gap:8px;flex-wrap:wrap}
+
+    .tmpl-grid{
+      margin-top: 12px;
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .tmpl-card{
+      border:1px solid rgba(15,23,42,.10);
+      background: rgba(255,255,255,.78);
+      border-radius: 18px;
+      padding: 12px 12px;
+    }
+    .tmpl-title{margin:0;font-size:14.5px;font-weight:980}
+    .tmpl-desc{margin:6px 0 0;color: rgba(15,23,42,.64);font-size:12.5px;line-height:1.7}
+    .tmpl-actions{margin-top: 10px;display:flex;gap:10px;flex-wrap:wrap}
+
+    .footer{
+      margin: 14px 0 0;
+      padding: 14px 0 30px;
+      color: rgba(15,23,42,.56);
+      font-size: 12px;
+      text-align:center;
+    }
+    .footer a{color: rgba(15,23,42,.78)}
+
+    .toast{
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%) translateY(20px);
+      opacity: 0;
+      pointer-events:none;
+      background: rgba(15,23,42,.86);
+      border:1px solid rgba(255,255,255,.14);
+      color: rgba(255,255,255,.92);
+      padding: 10px 12px;
+      border-radius: 12px;
+      box-shadow: 0 22px 70px rgba(15,23,42,.22);
+      transition: transform .18s ease, opacity .18s ease;
+      font-size: 12.5px;
+      max-width: min(720px, calc(100vw - 28px));
+      text-align:center;
+      z-index: 80;
+    }
+    .toast.show{opacity: 1; transform: translateX(-50%) translateY(0px)}
+
+    @media (max-width: 1100px){
+      .layout{grid-template-columns: 1fr}
+      .side{position: relative; top:auto; height:auto}
+      .rec{min-width: 0; flex: 1 1 360px}
+      .grid{grid-template-columns: repeat(2, minmax(0, 1fr))}
+      .tmpl-grid{grid-template-columns: repeat(2, minmax(0, 1fr))}
+    }
+    @media (max-width: 560px){
+      .grid{grid-template-columns: 1fr}
+      .tmpl-grid{grid-template-columns: 1fr}
+      .work{grid-template-columns: 1fr}
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <div class="layout">
+      <aside class="panel side" aria-label="侧边栏">
+        <div class="brand">
+          <div class="logo" aria-hidden="true"></div>
+          <div class="brand-text">
+            <div class="brand-title">电商带货工作台</div>
+            <div class="brand-sub">选品雷达 · 详情页结构 · 卖点证据</div>
+          </div>
+        </div>
+
+        <div class="side-actions">
+          <button class="btn ghost" id="showFavs3" type="button" data-event="ec3_side_favs">只看收藏</button>
+          <button class="btn primary" id="submitTool3" type="button" data-event="ec3_side_host">部署选型</button>
+        </div>
+
+        <div class="side-section-title">分类</div>
+        <div class="catlist" id="catList3" aria-label="分类列表"></div>
+
+        <div class="side-section-title">说明</div>
+        <div class="side-actions">
+          <a class="btn" href="#ec3-templates" data-event="ec3_side_templates">模板库</a>
+          <a class="btn" href="#ec3-toolbox" data-event="ec3_side_toolbox">工具库</a>
+          <button class="btn" id="fabTop3" type="button" data-event="ec3_side_top">回到顶部</button>
+        </div>
+        <div style="margin-top:10px;color: rgba(15,23,42,.60);font-size:12.5px;line-height:1.7">
+          收藏与最近打开仅保存在本地；文案与投放请遵守平台规则与广告法，避免夸大承诺。
+        </div>
+      </aside>
+
+      <section class="main">
+        <div class="top">
+          <section class="spot" aria-label="聚光灯">
+            <h1 class="spot-title">把带货拆成“可复用流程”</h1>
+            <p class="spot-sub">选品不靠感觉：用评分表、证据链与风险项；详情页不靠堆字：用模块结构与一致性校验；投放不靠运气：用创意矩阵与复盘表。</p>
+            <div class="searchbar" role="search">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" stroke="currentColor" stroke-width="2"/>
+                <path d="M16.5 16.5 21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              <input id="q3" type="search" placeholder="搜索：选品 / 罗盘 / 卖点 / 详情页 / 千川 / 素材 ..." autocomplete="off" />
+            </div>
+            <div class="statrow" aria-label="统计信息">
+              <span class="chip"><b id="count3">0</b> 个结果</span>
+              <span class="chip">当前分类：<b id="activeCat3">全部</b></span>
+              <span class="chip">分类 <b id="catCount3">0</b> / 工具 <b id="toolCount3">0</b></span>
+              <span class="chip">已收藏 <b id="favCount3">0</b> <i>★</i></span>
+            </div>
+
+            <section class="panel pad anchor" id="ec3-work" aria-label="工作台卡片" style="margin-top:12px">
+              <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:10px;flex-wrap:wrap">
+                <div>
+                  <div style="font-size:16px;font-weight:980">今日工作台</div>
+                  <div style="margin-top:6px;color: rgba(15,23,42,.64);font-size:12.5px">按链路把任务拆开，做完一项就能复用。</div>
+                </div>
+                <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end">
+                  <a class="mini" href="#" id="openDisclaimer3" data-event="ec3_open_disclaimer">使用说明</a>
+                  <a class="mini" href="#" id="openPrivacy3" data-event="ec3_open_privacy">隐私说明</a>
+                </div>
+              </div>
+              <div class="work" id="workCards3" aria-label="工作台清单"></div>
+            </section>
+          </section>
+
+          <section class="panel rec" aria-label="推荐与最近">
+            <div class="rec-head">
+              <div class="rec-title">常用入口</div>
+              <div class="segrow" role="tablist" aria-label="推荐切换">
+                <button class="seg active" type="button" data-rec="recommend" data-event="ec3_rec_tab_recommend" aria-selected="true">常用</button>
+                <button class="seg" type="button" data-rec="recent" data-event="ec3_rec_tab_recent" aria-selected="false">最近</button>
+              </div>
+            </div>
+            <div class="rec-body">
+              <p class="rec-desc" id="recommendDesc3"></p>
+              <p class="rec-hint" id="recommendHint3"></p>
+              <div class="rec-grid" id="recommendGrid3" aria-label="推荐列表"></div>
+            </div>
+          </section>
+        </div>
+
+        <section class="panel pad anchor" id="ec3-toolbox" aria-label="工具库" style="margin-top:12px">
+          <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:10px;flex-wrap:wrap">
+            <div>
+              <h2 style="margin:0;font-size:16px;font-weight:980">工具库（按“决策→表达→投放”）</h2>
+              <p style="margin:6px 0 0;color: rgba(15,23,42,.64);font-size:12.5px">侧边栏选分类；搜索支持关键词、平台与任务。</p>
+            </div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end">
+              <a class="mini primary" href="https://www.1bgp.com/" target="_blank" rel="noopener noreferrer" data-event="ec3_cta_1bgp_primary">查看方案</a>
+              <a class="mini" href="https://www.1bgp.com/" target="_blank" rel="noopener noreferrer" data-event="ec3_cta_1bgp_secondary">进入官网</a>
+            </div>
+          </div>
+          <div class="grid" id="grid3" aria-label="工具列表"></div>
+        </section>
+
+        <section class="panel pad anchor" id="ec3-templates" aria-label="模板库" style="margin-top:12px">
+          <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:10px;flex-wrap:wrap">
+            <div>
+              <h2 style="margin:0;font-size:16px;font-weight:980">模板库（选品/卖点/详情页/投放）</h2>
+              <p style="margin:6px 0 0;color: rgba(15,23,42,.64);font-size:12.5px">把信息补齐：人群、场景、价格带、竞品、证据与合规边界，输出更稳定。</p>
+            </div>
+          </div>
+          <div class="tmpl-grid" id="tmplGrid3" aria-label="模板卡片"></div>
+        </section>
+
+        <section class="panel pad anchor" id="ec3-checklist" aria-label="复盘清单" style="margin-top:12px">
+          <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:10px;flex-wrap:wrap">
+            <div>
+              <h2 style="margin:0;font-size:16px;font-weight:980">清单库（复盘与一致性）</h2>
+              <p style="margin:6px 0 0;color: rgba(15,23,42,.64);font-size:12.5px">用于复盘、合规检查、素材与详情页一致性校验。</p>
+            </div>
+          </div>
+          <div class="tmpl-grid" id="sopGrid3" aria-label="清单卡片"></div>
+        </section>
+
+        <footer class="footer">
+          <div>© <span id="year3"></span> 电商带货工作台 · 纯前端单页</div>
+        </footer>
+      </section>
+    </div>
+  </main>
+
+  <div class="toast" id="toast3" role="status" aria-live="polite"></div>
+
+  <script>
+    const LS_KEY = "ecomcn3:favs";
+    const REC_KEY = "ecomcn3:recent";
+
+    const tools = [
+      { name: "抖音电商", desc: "抖音电商官方入口（商家/达人/服务）。", url: "https://www.douyinec.com", cat: "平台入口", tags: ["抖音","电商","官方"], icon: "https://www.iliudar.com/api/icon?url=https%3A%2F%2Fwww.douyinec.com&v=13" },
+      { name: "抖店后台", desc: "抖音小店商家管理后台入口。", url: "https://fxg.jinritemai.com", cat: "平台入口", tags: ["小店","后台","订单"], icon: "https://www.iliudar.com/api/icon?url=https%3A%2F%2Ffxg.jinritemai.com&v=13" },
+      { name: "抖音电商罗盘", desc: "经营数据与分析看板（生意/内容/商品）。", url: "https://compass.jinritemai.com", cat: "数据洞察", tags: ["罗盘","看板","经营"], icon: "https://www.iliudar.com/api/icon?url=https%3A%2F%2Fcompass.jinritemai.com&v=13" },
+      { name: "巨量千川", desc: "电商投放入口（千川）。", url: "https://qianchuan.oceanengine.com", cat: "投放素材", tags: ["千川","投放","转化"], icon: "https://www.iliudar.com/api/icon?url=https%3A%2F%2Fqianchuan.oceanengine.com&v=13" },
+      { name: "巨量引擎", desc: "巨量投放与营销平台入口。", url: "https://e.juliangyinqing.com", cat: "投放素材", tags: ["投放","账户","营销"], icon: "https://www.iliudar.com/api/icon?url=https%3A%2F%2Fe.juliangyinqing.com&v=13" },
+      { name: "巨量创意", desc: "创意素材与灵感参考入口。", url: "https://cc.oceanengine.com", cat: "投放素材", tags: ["创意","灵感","素材"], icon: "https://www.iliudar.com/api/icon?url=https%3A%2F%2Fcc.oceanengine.com&v=13" },
+      { name: "巨量算数", desc: "趋势与热点洞察入口。", url: "https://trendinsight.oceanengine.com", cat: "数据洞察", tags: ["趋势","热点","洞察"], icon: "https://www.iliudar.com/api/icon?url=https%3A%2F%2Ftrendinsight.oceanengine.com&v=13" },
+      { name: "巨量百应", desc: "达人合作与撮合入口（巨量体系）。", url: "https://buyin.jinritemai.com", cat: "平台入口", tags: ["达人","合作","撮合"], icon: "https://www.iliudar.com/api/icon?url=https%3A%2F%2Fbuyin.jinritemai.com&v=13" },
+
+      { name: "1688", desc: "货源与供应链入口（工厂/批发）。", url: "https://www.1688.com", cat: "选品雷达", tags: ["货源","工厂","比价"], icon: "https://www.iliudar.com/api/icon?url=https%3A%2F%2Fwww.1688.com&v=13" },
+      { name: "义乌购", desc: "小商品货源与价格参考。", url: "https://www.yiwugo.com", cat: "选品雷达", tags: ["批发","小商品","货源"], icon: "https://www.iliudar.com/api/icon?url=https%3A%2F%2Fwww.yiwugo.com&v=13" },
+      { name: "淘宝", desc: "竞品参考与评论挖痛点。", url: "https://www.taobao.com", cat: "选品雷达", tags: ["竞品","评论","价格带"], icon: "https://www.iliudar.com/api/icon?url=https%3A%2F%2Fwww.taobao.com&v=13" },
+      { name: "京东", desc: "竞品参考（参数/服务/评价）。", url: "https://www.jd.com", cat: "选品雷达", tags: ["参数","评价","服务"], icon: "https://www.iliudar.com/api/icon?url=https%3A%2F%2Fwww.jd.com&v=13" },
+      { name: "拼多多", desc: "价格带与爆款观察入口。", url: "https://www.pinduoduo.com", cat: "选品雷达", tags: ["爆款","价格","人群"], icon: "https://www.iliudar.com/api/icon?url=https%3A%2F%2Fwww.pinduoduo.com&v=13" },
+      { name: "淘宝联盟", desc: "选品与推广链接（联盟）。", url: "https://pub.alimama.com", cat: "选品雷达", tags: ["联盟","推广","选品"], icon: "https://www.iliudar.com/api/icon?url=https%3A%2F%2Fpub.alimama.com&v=13" },
+      { name: "京东联盟", desc: "京东推广联盟入口。", url: "https://union.jd.com", cat: "选品雷达", tags: ["联盟","推广","选品"], icon: "https://www.iliudar.com/api/icon?url=https%3A%2F%2Funion.jd.com&v=13" },
+
+      { name: "蝉妈妈", desc: "带货数据、达人与商品趋势分析。", url: "https://www.chanmama.com", cat: "数据洞察", tags: ["数据","达人","分析"], icon: "https://www.iliudar.com/api/icon?url=https%3A%2F%2Fwww.chanmama.com&v=13" },
+      { name: "飞瓜数据", desc: "直播/短视频/电商数据分析。", url: "https://www.feigua.cn", cat: "数据洞察", tags: ["直播","短视频","数据"], icon: "https://www.iliudar.com/api/icon?url=https%3A%2F%2Fwww.feigua.cn&v=13" },
+      { name: "微信指数", desc: "关键词热度趋势参考。", url: "https://index.weixin.qq.com", cat: "数据洞察", tags: ["热度","趋势","关键词"], icon: "https://www.iliudar.com/api/icon?url=https%3A%2F%2Findex.weixin.qq.com&v=13" },
+      { name: "百度指数", desc: "关键词热度与趋势参考。", url: "https://index.baidu.com", cat: "数据洞察", tags: ["热度","趋势","关键词"], icon: "https://www.iliudar.com/api/icon?url=https%3A%2F%2Findex.baidu.com&v=13" },
+
+      { name: "DeepSeek", desc: "结构化拆解：人群画像、竞品拆解与证据链。", url: "https://chat.deepseek.com", cat: "卖点文案", tags: ["推理","结构","拆解"], icon: "https://www.aig123.com/wp-content/uploads/2024/05/deepseek.png" },
+      { name: "Kimi", desc: "长文阅读总结：评论/竞品文案/资料归纳。", url: "https://kimi.moonshot.cn", cat: "卖点文案", tags: ["长文","总结","中文"], icon: "https://www.iliudar.com/api/icon?url=https%3A%2F%2Fkimi.moonshot.cn&v=13" },
+      { name: "通义千问", desc: "结构化写作与改写：标题、卖点与脚本。", url: "https://tongyi.aliyun.com", cat: "卖点文案", tags: ["中文","写作","结构"], icon: "https://www.iliudar.com/api/icon?url=https%3A%2F%2Ftongyi.aliyun.com&v=13" },
+      { name: "豆包", desc: "中文改写与口语化文案入口。", url: "https://www.doubao.com", cat: "卖点文案", tags: ["改写","口语","文案"], icon: "https://lf-flow-web-cdn.doubao.com/obj/flow-doubao/doubao/web/static/image/OnboardingAvatar.bb1504ee.webp" },
+      { name: "文心一言", desc: "中文写作与问答入口。", url: "https://yiyan.baidu.com", cat: "卖点文案", tags: ["中文","写作","问答"], icon: "https://www.iliudar.com/api/icon?url=https%3A%2F%2Fyiyan.baidu.com&v=13" },
+      { name: "ChatGPT", desc: "卖点提炼、脚本与详情页结构化输出。", url: "https://chat.openai.com", cat: "卖点文案", tags: ["卖点","脚本","结构"], icon: "https://www.iliudar.com/api/icon?url=https%3A%2F%2Fchat.openai.com&v=13" },
+
+      { name: "Canva", desc: "多尺寸投放图模板化设计。", url: "https://www.canva.com", cat: "投放素材", tags: ["模板","出图","多尺寸"], icon: "https://www.iliudar.com/api/icon?url=https%3A%2F%2Fwww.canva.com&v=13" },
+      { name: "剪映专业版", desc: "短视频剪辑与模板。", url: "https://www.capcut.cn", cat: "投放素材", tags: ["剪辑","短视频","模板"], icon: "https://www.iliudar.com/api/icon?url=https%3A%2F%2Fwww.capcut.cn&v=13" },
+      { name: "稿定设计", desc: "电商图文与详情页素材模板。", url: "https://www.gaoding.com", cat: "投放素材", tags: ["电商","详情页","模板"], icon: "https://www.iliudar.com/api/icon?url=https%3A%2F%2Fwww.gaoding.com&v=13" },
+      { name: "Remove.bg", desc: "一键去背景抠图。", url: "https://www.remove.bg", cat: "投放素材", tags: ["抠图","去背景","效率"], icon: "https://www.iliudar.com/api/icon?url=https%3A%2F%2Fwww.remove.bg&v=13" },
+      { name: "TinyPNG", desc: "图片压缩减体积，提升加载速度。", url: "https://tinypng.com", cat: "投放素材", tags: ["压缩","体积","发布"], icon: "https://www.iliudar.com/api/icon?url=https%3A%2F%2Ftinypng.com&v=13" },
+
+      { name: "飞书表格", desc: "选品/素材/指标台账与协作。", url: "https://www.feishu.cn/product/sheets", cat: "效率协作", tags: ["台账","协作","看板"], icon: "https://www.iliudar.com/api/icon?url=https%3A%2F%2Fwww.feishu.cn&v=13" },
+      { name: "金数据", desc: "需求收集表单：素材、选品与投放回收。", url: "https://jinshuju.net", cat: "效率协作", tags: ["表单","收集","协作"], icon: "https://www.iliudar.com/api/icon?url=https%3A%2F%2Fjinshuju.net&v=13" },
+      { name: "石墨文档", desc: "脚本共创与版本管理。", url: "https://shimo.im", cat: "效率协作", tags: ["文档","协作","版本"], icon: "https://www.iliudar.com/api/icon?url=https%3A%2F%2Fshimo.im&v=13" }
+    ];
+
+    const workCards = [
+      { title: "选品雷达：先算分再拍板", desc: "用评分表快速判断：需求强度、毛利空间、竞品强度、供应链稳定、口碑与合规风险。", tags: ["选品","打分","风控"] },
+      { title: "卖点证据链：一句话能证明", desc: "卖点=利益点+证据+适用人群。把参数、对比、评价与资质放到同一张表。", tags: ["卖点","证据","结构"] },
+      { title: "详情页结构：模块化上架", desc: "首屏一句话→痛点→解决→证据→保障→FAQ。素材承诺要在详情页能兑现。", tags: ["详情页","结构","一致性"] },
+      { title: "投放拆解：用矩阵做胜率", desc: "人群×场景×表达做12条创意；每条只改一个变量；用台账记录指标，周复盘放大。", tags: ["投放","矩阵","复盘"] }
+    ];
+
+    const templateCards = [
+      {
+        title: "选品评分表（1-5分）",
+        tags: ["选品","评分","风控"],
+        desc: "把选品从“感觉”变成“可打分的标准”。",
+        text: `你是电商带货操盘手。请为以下商品做选品打分（1-5分）并给建议：\n- 需求强度（痛点/场景）\n- 价格带与毛利空间\n- 竞品强度（头部/同款多不多）\n- 复购与口碑风险\n- 供应链稳定性（交期/售后）\n- 合规风险（功效/夸大/敏感词）\n输出：总分 + 是否建议上架 + 3条优化方向。\n商品信息：<<<标题/价位/成本/人群/平台>>>`
+      },
+      {
+        title: "评论挖痛点（竞品拆解）",
+        tags: ["竞品","评论","痛点"],
+        desc: "从差评/中评里挖“真实需求”。",
+        text: `请根据以下竞品评论/评价文字，输出：\n1) 用户购买动机（3-5条）\n2) 高频痛点（按出现频次排序）\n3) 可转化卖点（对应痛点的解决方案）\n4) 需要规避的承诺与风险表达\n评论内容：<<<在此粘贴>>>`
+      },
+      {
+        title: "卖点证据链（8张卡片）",
+        tags: ["卖点","证据","结构"],
+        desc: "卖点=利益点+证据+适用人群。",
+        text: `请把以下产品信息提炼成卖点卡片（8张），每张包含：\n- 卖点标题（不超过10字）\n- 利益点（1句）\n- 证据（参数/对比/场景/评价/资质）\n- 适用人群与禁用人群\n- 合规风险提示\n产品信息：<<<在此粘贴>>>`
+      },
+      {
+        title: "详情页结构（可上架）",
+        tags: ["详情页","结构","转化"],
+        desc: "把详情页写成模块化结构，方便批量上新。",
+        text: `请为“<<<品类>>>”生成详情页结构，包含：\n- 首屏（核心卖点+人群+场景）\n- 痛点→解决方案\n- 参数与对比\n- 真实场景/使用方法\n- 保障（售后/发货/服务）\n- FAQ（8条）\n并为每个模块输出示例文案（可直接贴）。`
+      },
+      {
+        title: "投放脚本（口播+镜头拆解）",
+        tags: ["投放","脚本","镜头"],
+        desc: "短视频/图文投放的结构模板。",
+        text: `请为“<<<产品>>>”输出投放脚本：\n- 3秒钩子（至少5条）\n- 口播稿（15秒/30秒各1版）\n- 镜头拆解（每镜头：画面/字幕/时长/节奏）\n- 素材清单（需要拍什么/做什么图）\n- CTA（3条）\n约束：<<<人群/平台/预算>>>`
+      },
+      {
+        title: "标题与关键词（合规版）",
+        tags: ["标题","关键词","合规"],
+        desc: "把关键词放对位置，避免夸大与敏感词。",
+        text: `请为产品“<<<产品名>>>”生成：\n- 标题10条（卖点前置/人群前置/场景前置/对比式）\n- 关键词20个（按：人群/场景/属性/规格/痛点）分类\n- 风险词替换建议（避免绝对化/功效夸大）\n产品信息：<<<卖点/规格/人群/价位>>>`
+      }
+    ];
+
+    const checklistCards = [
+      {
+        title: "一致性校验（素材→详情页）",
+        tags: ["一致性","转化","减少跳失"],
+        desc: "素材承诺要在详情页能兑现：证据一致，减少跳失。",
+        text: `一致性检查清单：\n1) 素材主张（1句）是否出现在详情页首屏\n2) 素材提到的参数/对比，详情页是否能找到证据\n3) 素材的适用人群/禁用人群，详情页是否说明\n4) 保障与售后承诺是否一致\n5) 关键词是否与标题一致\n6) 是否出现风险词（绝对化/功效承诺）\n输出：不一致项列表 + 修复建议。`
+      },
+      {
+        title: "复盘模板（指标→归因→实验）",
+        tags: ["复盘","指标","实验"],
+        desc: "把每轮投放沉淀成可复用规则。",
+        text: `复盘模板：\n- 指标：曝光/点击/CTR/转化/CVR/ROI/客单/退款\n- 归因：人群/素材/落地页/价格/时段/频控\n- 结论：胜者素材特征（3条）+ 失败原因（3条）\n- 下一轮实验：变量、假设、预期、停止条件\n- 产物：素材命名规范 + 台账字段（>=15列）`
+      },
+      {
+        title: "合规检查（上线前）",
+        tags: ["合规","广告法","审核"],
+        desc: "减少被限流/下架风险。",
+        text: `上线前合规检查：\n1) 是否出现绝对化词（最/第一/永久/100%）\n2) 是否出现功效承诺与医疗暗示\n3) 是否出现诱导性承诺（必瘦/必白/必赚）\n4) 是否有证据支撑（参数/资质/对比）\n5) 是否符合平台规则（敏感品类、禁词）\n输出：风险词替换建议 + 证据补齐方案。`
+      }
+    ];
+
+    const state = { activeCat: "全部", q: "", favOnly: false, favs: new Set() };
+    const els = {
+      q: document.getElementById("q3"),
+      recommendGrid: document.getElementById("recommendGrid3"),
+      recommendDesc: document.getElementById("recommendDesc3"),
+      recommendHint: document.getElementById("recommendHint3"),
+      catList: document.getElementById("catList3"),
+      grid: document.getElementById("grid3"),
+      tmplGrid: document.getElementById("tmplGrid3"),
+      sopGrid: document.getElementById("sopGrid3"),
+      workCards: document.getElementById("workCards3"),
+      activeCat: document.getElementById("activeCat3"),
+      count: document.getElementById("count3"),
+      catCount: document.getElementById("catCount3"),
+      toolCount: document.getElementById("toolCount3"),
+      favCount: document.getElementById("favCount3"),
+      showFavs: document.getElementById("showFavs3"),
+      year: document.getElementById("year3"),
+      toast: document.getElementById("toast3"),
+      fabTop: document.getElementById("fabTop3"),
+      submitTool: document.getElementById("submitTool3"),
+      openDisclaimer: document.getElementById("openDisclaimer3"),
+      openPrivacy: document.getElementById("openPrivacy3")
+    };
+
+    function escapeHtml(s){
+      return String(s)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+    function normalize(s){return (s || "").toLowerCase().trim();}
+    function toast(msg){
+      els.toast.textContent = msg;
+      els.toast.classList.add("show");
+      clearTimeout(toast._t);
+      toast._t = setTimeout(() => els.toast.classList.remove("show"), 1700);
+    }
+    function track(node){
+      const ev = node?.dataset?.event;
+      if(!ev) return;
+      window.__events = window.__events || [];
+      window.__events.push({ event: ev, ts: Date.now() });
+    }
+    function getCategories(items){
+      const set = new Set(items.map(x => x.cat));
+      return ["全部", ...Array.from(set).sort((a,b)=>a.localeCompare(b,"zh-Hans-CN"))];
+    }
+    function countByCat(items){
+      const map = new Map();
+      for(const it of items){
+        map.set(it.cat, (map.get(it.cat) || 0) + 1);
+      }
+      return map;
+    }
+    function matchesQuery(item, q){
+      if(!q) return true;
+      const hay = [item.name, item.desc, item.cat, ...(item.tags || [])].join(" ").toLowerCase();
+      return hay.includes(q);
+    }
+    function shouldShow(item){
+      if(state.activeCat !== "全部" && item.cat !== state.activeCat) return false;
+      if(state.favOnly && !state.favs.has(item.name)) return false;
+      if(!matchesQuery(item, state.q)) return false;
+      return true;
+    }
+
+    function saveFavs(){
+      localStorage.setItem(LS_KEY, JSON.stringify(Array.from(state.favs)));
+      updateCounts();
+    }
+    function loadFavs(){
+      try{
+        const raw = localStorage.getItem(LS_KEY);
+        if(!raw) return;
+        const arr = JSON.parse(raw);
+        if(Array.isArray(arr)) state.favs = new Set(arr);
+      }catch(_){}
+    }
+    function loadRecents(){
+      try{
+        const raw = localStorage.getItem(REC_KEY);
+        if(!raw) return [];
+        const arr = JSON.parse(raw);
+        return Array.isArray(arr) ? arr.filter(Boolean) : [];
+      }catch(_){return [];}
+    }
+    function saveRecents(list){
+      try{localStorage.setItem(REC_KEY, JSON.stringify(list.slice(0, 12)))}catch(_){}
+    }
+    function pushRecent(name){
+      if(!name) return;
+      const list = loadRecents();
+      const next = [name, ...list.filter(x => x !== name)].slice(0, 12);
+      saveRecents(next);
+    }
+
+    function iconSvg(cat){
+      const common = {
+        "平台入口": `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 6a2 2 0 0 1 2-2h5l2 2h9v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>`,
+        "选品雷达": `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z" stroke="currentColor" stroke-width="2"/><path d="M12 12l6-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 12v7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`,
+        "数据洞察": `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 20V6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M8 20V10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 20V4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M16 20v-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M20 20v-9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`,
+        "卖点文案": `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 4h10a2 2 0 0 1 2 2v14H7a2 2 0 0 0-2 2V6a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="2"/><path d="M9 8h8M9 12h8M9 16h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`,
+        "投放素材": `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6Z" stroke="currentColor" stroke-width="2"/><path d="M8 14l2-2 2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+        "效率协作": `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 3h12v18H6V3Z" stroke="currentColor" stroke-width="2"/><path d="M9 7h6M9 11h6M9 15h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`
+      };
+      return common[cat] || `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z" stroke="currentColor" stroke-width="2"/><path d="M8 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`;
+    }
+
+    function toolIconSvg(name){
+      const map = {
+        "抖音电商": iconSvg("平台入口"),
+        "抖店后台": iconSvg("平台入口"),
+        "抖音电商罗盘": iconSvg("数据洞察"),
+        "巨量千川": iconSvg("投放素材"),
+        "巨量引擎": iconSvg("投放素材"),
+        "巨量创意": iconSvg("投放素材"),
+        "巨量算数": iconSvg("数据洞察"),
+        "巨量百应": iconSvg("平台入口"),
+        "1688": iconSvg("选品雷达"),
+        "义乌购": iconSvg("选品雷达"),
+        "淘宝": iconSvg("选品雷达"),
+        "京东": iconSvg("选品雷达"),
+        "拼多多": iconSvg("选品雷达"),
+        "淘宝联盟": iconSvg("选品雷达"),
+        "京东联盟": iconSvg("选品雷达"),
+        "蝉妈妈": iconSvg("数据洞察"),
+        "飞瓜数据": iconSvg("数据洞察"),
+        "微信指数": iconSvg("数据洞察"),
+        "百度指数": iconSvg("数据洞察"),
+        "DeepSeek": iconSvg("卖点文案"),
+        "Kimi": iconSvg("卖点文案"),
+        "通义千问": iconSvg("卖点文案"),
+        "豆包": iconSvg("卖点文案"),
+        "文心一言": iconSvg("卖点文案"),
+        "ChatGPT": iconSvg("卖点文案"),
+        "Canva": iconSvg("投放素材"),
+        "剪映专业版": iconSvg("投放素材"),
+        "稿定设计": iconSvg("投放素材"),
+        "Remove.bg": iconSvg("投放素材"),
+        "TinyPNG": iconSvg("投放素材"),
+        "飞书表格": iconSvg("效率协作"),
+        "金数据": iconSvg("效率协作"),
+        "石墨文档": iconSvg("效率协作")
+      };
+      return map[name] || iconSvg("卖点文案");
+    }
+
+    function toolIconHtml(tool){
+      if(tool?.icon){
+        return `<img src="${escapeHtml(tool.icon)}" alt="${escapeHtml(tool.name)}" loading="lazy" decoding="async" referrerpolicy="no-referrer" data-icon-name="${escapeHtml(tool.name)}" />`;
+      }
+      return toolIconSvg(tool?.name || "");
+    }
+
+    function attachIconFallback(root){
+      if(!root) return;
+      root.querySelectorAll('img[data-icon-name]').forEach(img => {
+        img.addEventListener("error", () => {
+          const name = img.getAttribute("data-icon-name") || "";
+          const wrap = img.parentElement;
+          if(!wrap) return;
+          wrap.innerHTML = toolIconSvg(name);
+        }, { once: true });
+      });
+    }
+
+    function updateCounts(filtered){
+      const categories = getCategories(tools);
+      els.catCount.textContent = String(Math.max(0, categories.length - 1));
+      els.toolCount.textContent = String(tools.length);
+      els.favCount.textContent = String(state.favs.size);
+      if(typeof filtered === "number") els.count.textContent = String(filtered);
+      els.activeCat.textContent = state.activeCat;
+    }
+
+    async function copyText(text){
+      try{
+        await navigator.clipboard.writeText(text);
+        toast("已复制");
+      }catch(_){
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.position = "fixed";
+        ta.style.left = "-9999px";
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        ta.remove();
+        toast("已复制");
+      }
+    }
+
+    function renderCards(list, root, evPrefix){
+      if(!root) return;
+      root.innerHTML = list.map((x) => `
+        <article class="tmpl-card">
+          <h3 class="tmpl-title">${escapeHtml(x.title)}</h3>
+          <p class="tmpl-desc">${escapeHtml(x.desc)}</p>
+          <div class="tags">
+            ${(x.tags || []).slice(0,4).map(t => `<span class="tag">${escapeHtml(t)}</span>`).join("")}
+          </div>
+          <div class="tmpl-actions">
+            <button class="mini primary" type="button" data-copy="${escapeHtml(x.text)}" data-event="${evPrefix}_copy">复制模板</button>
+            <button class="mini" type="button" data-fill="${escapeHtml(x.title)}" data-event="${evPrefix}_use">用于搜索</button>
+          </div>
+        </article>
+      `).join("");
+      root.querySelectorAll("[data-copy]").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          track(e.currentTarget);
+          const text = e.currentTarget.getAttribute("data-copy") || "";
+          copyText(text);
+        });
+      });
+      root.querySelectorAll("[data-fill]").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          track(e.currentTarget);
+          const q = e.currentTarget.getAttribute("data-fill") || "";
+          els.q.value = q;
+          state.q = normalize(q);
+          renderGrid();
+          toast("已填入搜索框");
+        });
+      });
+    }
+
+    function renderWorkCards(){
+      if(!els.workCards) return;
+      els.workCards.innerHTML = workCards.map(x => `
+        <article class="wcard">
+          <h3 class="wtitle">${escapeHtml(x.title)}</h3>
+          <p class="wdesc">${escapeHtml(x.desc)}</p>
+          <div class="wmeta">
+            ${(x.tags || []).slice(0,4).map(t => `<span class="tag">${escapeHtml(t)}</span>`).join("")}
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function renderCatList(){
+      const categories = getCategories(tools);
+      const catCounts = countByCat(tools);
+      els.catList.innerHTML = categories.map(cat => {
+        const active = cat === state.activeCat ? "active" : "";
+        const count = cat === "全部" ? tools.length : (catCounts.get(cat) || 0);
+        return `
+          <button class="catitem ${active}" type="button" data-cat="${escapeHtml(cat)}" data-event="ec3_cat_${escapeHtml(cat)}" aria-label="${escapeHtml(cat)}">
+            <span class="catleft">
+              <span class="catico">${iconSvg(cat)}</span>
+              <span class="catname">${escapeHtml(cat)}</span>
+            </span>
+            <span class="catmeta">${count}</span>
+          </button>
+        `;
+      }).join("");
+    }
+
+    function renderRecommend(mode){
+      const prefer = [
+        "抖音电商罗盘","巨量千川","抖店后台","1688",
+        "蝉妈妈","飞瓜数据","DeepSeek","Kimi",
+        "剪映专业版","Canva"
+      ];
+      let list = [];
+      if(mode === "recent"){
+        const recentNames = loadRecents();
+        list = recentNames.map(n => tools.find(t => t.name === n)).filter(Boolean);
+        els.recommendDesc.textContent = "你最近点过的入口（仅保存在本地，不上传）。";
+        els.recommendHint.textContent = list.length ? "" : "暂无最近记录。点击工具后会自动出现。";
+      }else{
+        const picked = [];
+        for(const n of prefer){
+          const t = tools.find(x => x.name === n);
+          if(t) picked.push(t);
+        }
+        for(const t of tools){
+          if(!picked.some(x => x.name === t.name)) picked.push(t);
+        }
+        list = picked.slice(0, 8);
+        els.recommendDesc.textContent = "常用入口（置顶）。";
+        els.recommendHint.textContent = "";
+      }
+      els.recommendGrid.innerHTML = list.map(t => `
+        <a class="rec-card" href="${escapeHtml(t.url)}" target="_blank" rel="noopener noreferrer" data-event="ec3_rec_open_${escapeHtml(t.name)}" data-tool="${escapeHtml(t.name)}" aria-label="${escapeHtml(t.name)}">
+          <span class="rec-icon">${toolIconHtml(t)}</span>
+          <span class="rec-text">
+            <span class="rec-name">${escapeHtml(t.name)}</span>
+            <span class="rec-sub">${escapeHtml(t.desc || "")}</span>
+          </span>
+        </a>
+      `).join("");
+      attachIconFallback(els.recommendGrid);
+      els.recommendGrid.querySelectorAll("a").forEach(a => {
+        a.addEventListener("click", (e) => {
+          track(e.currentTarget);
+          const name = e.currentTarget.getAttribute("data-tool") || "";
+          pushRecent(name);
+        });
+      });
+    }
+
+    function renderInlineAd(){
+      return `
+        <div class="inline-ad">
+          <div class="ad-slot" role="region" aria-label="信息流推荐">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+              <div class="ad-title">信息流推荐：1bgp.com 服务器</div>
+              <span class="badge">合作</span>
+            </div>
+            <div class="ad-desc">适合部署选品库、素材管理、台账与自动化任务。云/物理机可选，按需扩容。</div>
+            <div style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap">
+              <a class="mini primary" href="https://www.1bgp.com/" target="_blank" rel="noopener noreferrer" data-event="ec3_ad_feed_primary">查看配置</a>
+              <a class="mini" href="https://www.1bgp.com/" target="_blank" rel="noopener noreferrer" data-event="ec3_ad_feed_secondary">进入官网</a>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderGrid(){
+      const list = tools.filter(shouldShow);
+      updateCounts(list.length);
+      renderCatList();
+
+      if(list.length === 0){
+        els.grid.innerHTML = `
+          <div class="card" style="grid-column:1 / -1">
+            <div class="card-title">没有匹配结果</div>
+            <p class="card-desc">尝试切换分类或减少关键词，或取消“只看收藏”。</p>
+            <div class="card-actions">
+              <button class="mini primary" type="button" id="resetFilters3" data-event="ec3_reset_filters">重置筛选</button>
+              <a class="mini" href="https://www.1bgp.com/" target="_blank" rel="noopener noreferrer" data-event="ec3_cta_from_empty">看看部署方案</a>
+            </div>
+          </div>
+        `;
+        document.getElementById("resetFilters3").addEventListener("click", (e) => {
+          track(e.currentTarget);
+          state.activeCat = "全部";
+          state.q = "";
+          state.favOnly = false;
+          els.q.value = "";
+          els.showFavs.textContent = "只看收藏";
+          renderGrid();
+          toast("已重置筛选");
+        });
+        return;
+      }
+
+      const nodes = [];
+      const insertAt = Math.min(9, list.length);
+      list.forEach((item, idx) => {
+        if(idx === insertAt) nodes.push(renderInlineAd());
+        const fav = state.favs.has(item.name);
+        nodes.push(`
+          <article class="card" data-name="${escapeHtml(item.name)}" data-cat="${escapeHtml(item.cat)}">
+            <div class="card-head">
+              <div>
+                <h3 class="card-title">${escapeHtml(item.name)}</h3>
+                <p class="card-desc">${escapeHtml(item.desc)}</p>
+              </div>
+              <button class="star" type="button" aria-label="收藏" aria-pressed="${fav ? "true" : "false"}" data-fav="${escapeHtml(item.name)}" data-event="ec3_fav_toggle">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M12 17.3 6.2 20.6l1.1-6.6L2.6 9.7l6.6-1 2.8-6 2.8 6 6.6 1-4.7 4.3 1.1 6.6L12 17.3Z" stroke="currentColor" stroke-width="2" opacity="${fav ? "1" : ".7"}" fill="${fav ? "rgba(37,99,235,.14)" : "transparent"}"/>
+                </svg>
+              </button>
+            </div>
+            <div class="tags">
+              <span class="tag">${escapeHtml(item.cat)}</span>
+              ${(item.tags || []).slice(0,3).map(t => `<span class="tag">${escapeHtml(t)}</span>`).join("")}
+            </div>
+            <div class="card-actions">
+              <a class="mini primary" href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" data-event="ec3_tool_open" data-tool="${escapeHtml(item.name)}">访问</a>
+              <button class="mini" type="button" data-event="ec3_tool_copy" data-copy="${escapeHtml(item.name)}｜${escapeHtml(item.url)}">复制链接</button>
+            </div>
+          </article>
+        `);
+      });
+      els.grid.innerHTML = nodes.join("");
+
+      els.grid.querySelectorAll("[data-fav]").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          track(e.currentTarget);
+          const name = e.currentTarget.getAttribute("data-fav");
+          if(!name) return;
+          if(state.favs.has(name)) state.favs.delete(name);
+          else state.favs.add(name);
+          saveFavs();
+          renderGrid();
+          toast(state.favs.has(name) ? "已收藏" : "已取消收藏");
+        });
+      });
+
+      els.grid.querySelectorAll("[data-copy]").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          track(e.currentTarget);
+          const text = e.currentTarget.getAttribute("data-copy") || "";
+          copyText(text);
+        });
+      });
+
+      els.grid.querySelectorAll('a[data-event="ec3_tool_open"]').forEach(a => {
+        a.addEventListener("click", (e) => {
+          track(e.currentTarget);
+          const name = e.currentTarget.getAttribute("data-tool") || "";
+          pushRecent(name);
+        });
+      });
+
+      els.grid.querySelectorAll('[data-event^="ec3_ad_"]').forEach(a => {
+        a.addEventListener("click", (e) => track(e.currentTarget));
+      });
+    }
+
+    function setActiveCat(cat){
+      state.activeCat = cat;
+      renderGrid();
+    }
+
+    function init(){
+      loadFavs();
+      els.year.textContent = String(new Date().getFullYear());
+      renderWorkCards();
+      renderRecommend("recommend");
+      renderCards(templateCards, els.tmplGrid, "ec3_tmpl");
+      renderCards(checklistCards, els.sopGrid, "ec3_chk");
+      renderGrid();
+      updateCounts(tools.length);
+
+      const recTabs = document.querySelectorAll("[data-rec]");
+      recTabs.forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          track(e.currentTarget);
+          const mode = e.currentTarget.getAttribute("data-rec") || "recommend";
+          recTabs.forEach(x => {
+            const active = x === e.currentTarget;
+            x.classList.toggle("active", active);
+            x.setAttribute("aria-selected", active ? "true" : "false");
+          });
+          renderRecommend(mode);
+        });
+      });
+
+      els.q.addEventListener("input", () => {
+        state.q = normalize(els.q.value);
+        renderGrid();
+      });
+
+      els.catList.addEventListener("click", (e) => {
+        const btn = e.target.closest("[data-cat]");
+        if(!btn) return;
+        track(btn);
+        const cat = btn.getAttribute("data-cat");
+        if(!cat) return;
+        setActiveCat(cat);
+      });
+
+      els.showFavs.addEventListener("click", (e) => {
+        track(e.currentTarget);
+        state.favOnly = !state.favOnly;
+        els.showFavs.textContent = state.favOnly ? "显示全部" : "只看收藏";
+        renderGrid();
+        toast(state.favOnly ? "仅显示收藏" : "显示全部");
+      });
+
+      els.fabTop.addEventListener("click", (e) => {
+        track(e.currentTarget);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      els.submitTool.addEventListener("click", (e) => {
+        track(e.currentTarget);
+        window.open("https://www.1bgp.com/", "_blank", "noopener,noreferrer");
+      });
+
+      els.openDisclaimer.addEventListener("click", (e) => {
+        e.preventDefault();
+        track(e.currentTarget);
+        toast("使用说明：工作台用于梳理选品/卖点/详情页/投放链路与模板，仅作参考；请根据平台规则、品类合规与真实证据进行调整。");
+      });
+
+      els.openPrivacy.addEventListener("click", (e) => {
+        e.preventDefault();
+        track(e.currentTarget);
+        toast("隐私说明：收藏/最近使用仅保存在你的浏览器本地，不会上传。");
+      });
+    }
+
+    init();
+  </script>
+</body>
+</html>
